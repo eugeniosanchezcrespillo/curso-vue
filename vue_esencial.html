@@ -9,10 +9,24 @@
     {{ message }}
   </div>
   <hr>
+
   <div id="app1">
     {{ message }}
     <br />
     <input type="text" v-model="message">
+    <pre>{{$data}}</pre>
+  </div>
+  <hr>
+
+  <div id="app2">
+    V-show
+    <br />
+    <template v-show="connect">{{ message }}</template>
+
+    <h2 v-if="edad<18">No puedes entrar</h2>
+    <h2 v-else-if="edad>=18">Puedes entrar</h2>
+    <h2 v-else-if="edad>200">Eres inmortal</h2>
+
     <pre>{{$data}}</pre>
   </div>
 
@@ -29,7 +43,18 @@
     var app1 = new Vue({
       el: '#app1',
       data: {
-        menssage: 'Hello v-model!'
+        message: 'Hello v-model!'
+      }
+    })
+  </script>
+
+  <script>
+    var app2 = new Vue({
+      el: '#app2',
+      data: {
+        message: 'Hello v-show v-if!',
+        connect: true,
+        edad: 18
       }
     })
   </script>
