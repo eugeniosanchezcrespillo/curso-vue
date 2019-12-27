@@ -19,8 +19,6 @@
   <hr>
 
   <div id="app2">
-    V-show
-    <br />
     <template v-show="connect">{{ message }}</template>
 
     <h2 v-if="edad<18">No puedes entrar</h2>
@@ -29,6 +27,34 @@
 
     <pre>{{$data}}</pre>
   </div>
+  <hr>
+
+  <div id="app3">
+    {{message}}
+    <br />
+    
+    Matrix
+    <ul>
+      <li v-for="d in days">{{d}}</li>
+    </ul>
+    Collection (object's matrix)
+    <ul>
+      <li v-for="(t,index) in tasks">
+        {{index+1}}.- {{t.name}}
+        <small>{{t.priority}}</small>
+      </li>
+    </ul>
+    Object
+    <ul>
+      <li v-for="(key,value,index) in person">
+        {{index+1}}.- {{key}}: {{value}}
+      </li>
+    </ul>
+
+    <pre>{{$data}}</pre>
+  </div>
+  <hr>
+
 
   <script>
     var app = new Vue({
@@ -58,5 +84,26 @@
       }
     })
   </script>
+
+<script>
+  var app3 = new Vue({
+    el: '#app3',
+    data: {
+      message: 'Hello v-for!',
+      days: ['Monday','Tuesday','Wednesday','Thursday','Friday'],
+      tasks: [
+        {name:'Sleep', priority:'high'},
+        {name: 'Go shopping', priority:'medium'},
+        {name: 'Study', priority: 'high'}
+      ],
+      person:{
+        name: 'Eugenio',
+        profession: 'technician',
+        age: '37'
+      }
+    }
+  })
+</script>
+
 </body>
 </html>
