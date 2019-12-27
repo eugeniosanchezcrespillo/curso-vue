@@ -8,12 +8,28 @@
   <div id="app">
     {{ message }}
   </div>
+  <hr>
+  <div id="app1">
+    {{ message }}
+    <br />
+    <input type="text" v-model="message">
+    <pre>{{$data}}</pre>
+  </div>
 
   <script>
     var app = new Vue({
       el: '#app',
       data: {
         message: 'Hello Vue!'
+      }
+    })
+  </script>
+
+  <script>
+    var app1 = new Vue({
+      el: '#app1',
+      data: {
+        menssage: 'Hello v-model!'
       }
     })
   </script>
