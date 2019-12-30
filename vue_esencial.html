@@ -6,6 +6,61 @@
 </head>
 <body>
 
+
+  <!-- Filters -->
+  <div id="app6">
+    {{message}}
+    <br />
+    
+    Games Range
+    <ul>
+      <li v-for="g in gamesRange">
+        {{g.name | Inverso}} stars:{{g.stars}}
+      </li>
+    </ul>
+
+    <input type="range" v-model="min" min="0" max="10">
+    
+    <br />
+    Games Search
+    <input type="search" placeholder="Search game" v-model="string_search">
+    <ul>
+      <li v-for="g in searchGame">
+        {{ g.name }} stars:{{g.stars}}*
+      </li>
+    </ul>
+
+    <br />
+    <pre>{{$data}}</pre>
+  </div>
+  <hr>
+
+  <script>
+
+    Vue.filter('Inverso',(title) => title.split('').reverse().join(''));
+
+    var app6 = new Vue({
+      el: '#app6',
+      data:{
+        message: 'Filters',
+        min:5,
+        string_search:'',
+        games:[
+          {name: 'Mario Bros', stars: 10},
+          {name: 'Sonic', stars: 8},
+          {name: 'Pacman', stars: 4},
+        ]
+      },
+      computed:{
+        gamesRange(){
+          return this.games.filter((game)=>game.stars>=this.min)
+        },
+        searchGame(){
+          return this.games.filter((game)=>game.name.includes(this.string_search));
+        },
+      }
+    });
+  </script>
   <!-- Computed properties app5-->
   
   <div id="app5">
