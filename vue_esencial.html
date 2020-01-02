@@ -6,7 +6,55 @@
 </head>
 <body>
 
+  <!-- Transitions -->
+  <div id="app9">
 
+  </div> 
+  <hr>
+
+  <script>
+  </script>
+
+  
+  <!-- Data Binding Attributes & Classes -->
+  <div id="app8">
+
+  </div> 
+  <hr>
+
+  <script>
+  </script>
+
+  <!-- Vue Instance -->
+  <div id="app7">
+    <h1 v-text="message"></h1>
+    <button @click="toUpper">toUpper</button>
+  </div> 
+  <div id="app7-2">
+    {{message}}
+  </div>
+  <hr>
+
+  <script>
+    const vm1=new Vue({
+      el: '#app7',
+      data: {
+        message: 'Vue Instance 1'
+      },
+      methods:{
+        toUpper(){
+          this.message = this.message.toUpperCase();
+        }
+      }
+    });
+    const vm2=new Vue({
+      el: '#app7-2',
+      data: {
+        message:'Vue Instance 2'
+      }
+    });
+  </script>
+  
   <!-- Filters -->
   <div id="app6">
     {{message}}
@@ -61,7 +109,9 @@
       }
     });
   </script>
-  <!-- Computed properties app5-->
+
+
+  <!-- Computed properties app5 -->
   
   <div id="app5">
     {{message}}
@@ -78,18 +128,18 @@
     <br />
     Active tasks:
     <ul>
-      <li v-for="(t,index) in tasksActive">
-        {{index+1}}.- {{t.name}}: {{t.age}}
+      <li v-for="(ta,index) in tasksActive">
+        {{index+1}}.- {{ta.name}}: {{ta.age}}
       </li>
     </ul>
     <br />
-    Ordered tasks (by Age):
+    <!--Ordered tasks (by Age):
     <ul>
-      <li v-for="(t,index) in tasksOrdered">
-        {{index+1}}.- {{t.name}}: {{t.age}}
+      <li v-for="(task,index) in tasksOrdered">
+        {{index+1}}.- {{task.name}}: {{task.age}}
       </li>
     </ul>
-    
+  -->
   </div>
   <hr>
 
@@ -122,7 +172,7 @@
         }
       })
   </script>
-  
+
   <!-- Events app4 -->
   
   <div id="app4">
