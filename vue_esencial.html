@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>My first Vue app</title>
   <script src="https://unpkg.com/vue"></script>
+  <style>
+
+    .completed{
+        text-decoration: line-through
+    }
+
+  </style>
+
 </head>
 <body>
 
@@ -18,12 +27,55 @@
   
   <!-- Data Binding Attributes & Classes -->
   <div id="app8">
-
+    Add New Task:
+    <br />
+      <input type="text" v-model="newTask">
+      <button @click="addTask">Add Task</button>
+    <br />
+    {{tasksCompleted.length}} tasks completed
+    <br />
+    Tasks:
+    <br />
+    <ul>
+      <li v-bind:class="{completed: t.completed}"
+          v-on:click="taskCompleted(t)"
+          v-for="(t,index) in tasks">
+          {{index+1}}.- {{t.name}}
+      </li>
+    </ul>
+    <pre>{{$data}}</pre>
   </div> 
   <hr>
 
   <script>
+    var app8 = new Vue({
+      el: '#app8',
+      data:{
+        newTask:'',
+        tasks:[],
+      },
+      methods:{
+        addTask(){
+          if (this.newTask!=''){
+            //this.data = {"name": this.newTask, "completed": false};
+            this.tasks.push({"name": this.newTask, "completed": false});
+            this.newTask='';
+          }
+        },
+
+        taskCompleted(t){
+          t.completed=!t.completed;
+        },
+        
+      },
+      computed:{
+        tasksCompleted(){
+          return this.tasks.filter((t)=>t.completed);
+        }
+      }
+    });
   </script>
+
 
   <!-- Vue Instance -->
   <div id="app7">
