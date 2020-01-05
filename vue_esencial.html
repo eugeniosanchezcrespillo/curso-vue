@@ -4,73 +4,163 @@
 <head>
   <title>My first Vue app</title>
   <script src="https://unpkg.com/vue"></script>
-  <style>
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-    .completed{
-        text-decoration: line-through
+  <style>
+    .completed {
+      text-decoration: line-through
     }
 
+    .aparece-enter {
+      opacity: 0;
+    }
+
+    .aparece-enter-active {
+      transition: opacity 1s;
+    }
+
+    .aparece-leave-to {
+      opacity: 0;
+    }
+
+    .aparece-leave-active {
+      transition: opacity 1s;
+    }
+
+    .bounce-enter-active {
+      animation: bounce-in .5s;
+    }
+
+    .bounce-leave-active {
+      animation: bounce-in .5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(1.5);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
   </style>
 
 </head>
+
 <body>
 
-  <!-- Transitions -->
-  <div id="app9">
-
-  </div> 
+  <!--Axios-->
+  <div id="app10">
+  
+  </div>
   <hr>
 
   <script>
+  
+  </script>
+  
+  <!-- Transitions -->
+  <div id="app9">
+    <button @click="show=!show">Show Messages</button>
+    
+    <!--Transition-->
+    <transition name="aparece" appear>
+      <h1 v-if="show" v-text="messages.transition"></h1>
+    </transition>
+    
+    <!--Animated-->
+    <transition name="bounce">
+      <h1 v-if="show" v-text="messages.animation"></h1>
+    </transition>
+
+    <!--Animate.css-->
+    <transition 
+        name="animate.css"
+        enter-active-class="animated tada"
+        leave-active-class="animated bounceOutRight"
+    > 
+      <h1 v-if="show" v-text="messages.custom"></h1>
+    </transition>
+
+    <!--Animated-->
+    <transition name="aparece" mode="out-in">
+      <h1 v-if="show" v-text="messages.elements" key="aparecer"></h1>
+      <h1 v-else key="ocultar">No messages</h1>
+    </transition>
+
+
+    <pre>{{$data}}</pre>
+  </div>
+
+  <hr>
+
+  <script>
+    var app9 = new Vue({
+      el: '#app9',
+      data: {
+        show: true,
+        messages: {
+          transition: 'Transition Text Vuejs',
+          animation: 'Transition Text Animated Css',
+          custom: 'Transition animated custom css',
+          elements: 'Transition between elements css'
+        }
+
+      }
+    });
   </script>
 
-  
+
+
   <!-- Data Binding Attributes & Classes -->
   <div id="app8">
     Add New Task:
     <br />
-      <input type="text" v-model="newTask">
-      <button @click="addTask">Add Task</button>
+    <input type="text" v-model="newTask">
+    <button @click="addTask">Add Task</button>
     <br />
     {{tasksCompleted.length}} tasks completed
     <br />
     Tasks:
     <br />
     <ul>
-      <li v-bind:class="{completed: t.completed}"
-          v-on:click="taskCompleted(t)"
-          v-for="(t,index) in tasks">
-          {{index+1}}.- {{t.name}}
+      <li v-bind:class="{completed: t.completed}" v-on:click="taskCompleted(t)" v-for="(t,index) in tasks">
+        {{index+1}}.- {{t.name}}
       </li>
     </ul>
     <pre>{{$data}}</pre>
-  </div> 
+  </div>
   <hr>
 
   <script>
     var app8 = new Vue({
       el: '#app8',
-      data:{
-        newTask:'',
-        tasks:[],
+      data: {
+        newTask: '',
+        tasks: [],
       },
-      methods:{
-        addTask(){
-          if (this.newTask!=''){
+      methods: {
+        addTask() {
+          if (this.newTask != '') {
             //this.data = {"name": this.newTask, "completed": false};
-            this.tasks.push({"name": this.newTask, "completed": false});
-            this.newTask='';
+            this.tasks.push({ "name": this.newTask, "completed": false });
+            this.newTask = '';
           }
         },
 
-        taskCompleted(t){
-          t.completed=!t.completed;
+        taskCompleted(t) {
+          t.completed = !t.completed;
         },
-        
+
       },
-      computed:{
-        tasksCompleted(){
-          return this.tasks.filter((t)=>t.completed);
+      computed: {
+        tasksCompleted() {
+          return this.tasks.filter((t) => t.completed);
         }
       }
     });
@@ -81,37 +171,37 @@
   <div id="app7">
     <h1 v-text="message"></h1>
     <button @click="toUpper">toUpper</button>
-  </div> 
+  </div>
   <div id="app7-2">
     {{message}}
   </div>
   <hr>
 
   <script>
-    const vm1=new Vue({
+    const vm1 = new Vue({
       el: '#app7',
       data: {
         message: 'Vue Instance 1'
       },
-      methods:{
-        toUpper(){
+      methods: {
+        toUpper() {
           this.message = this.message.toUpperCase();
         }
       }
     });
-    const vm2=new Vue({
+    const vm2 = new Vue({
       el: '#app7-2',
       data: {
-        message:'Vue Instance 2'
+        message: 'Vue Instance 2'
       }
     });
   </script>
-  
+
   <!-- Filters -->
   <div id="app6">
     {{message}}
     <br />
-    
+
     Games Range
     <ul>
       <li v-for="g in gamesRange">
@@ -120,7 +210,7 @@
     </ul>
 
     <input type="range" v-model="min" min="0" max="10">
-    
+
     <br />
     Games Search
     <input type="search" placeholder="Search game" v-model="string_search">
@@ -137,26 +227,26 @@
 
   <script>
 
-    Vue.filter('Inverso',(title) => title.split('').reverse().join(''));
+    Vue.filter('Inverso', (title) => title.split('').reverse().join(''));
 
     var app6 = new Vue({
       el: '#app6',
-      data:{
+      data: {
         message: 'Filters',
-        min:5,
-        string_search:'',
-        games:[
-          {name: 'Mario Bros', stars: 10},
-          {name: 'Sonic', stars: 8},
-          {name: 'Pacman', stars: 4},
+        min: 5,
+        string_search: '',
+        games: [
+          { name: 'Mario Bros', stars: 10 },
+          { name: 'Sonic', stars: 8 },
+          { name: 'Pacman', stars: 4 },
         ]
       },
-      computed:{
-        gamesRange(){
-          return this.games.filter((game)=>game.stars>=this.min)
+      computed: {
+        gamesRange() {
+          return this.games.filter((game) => game.stars >= this.min)
         },
-        searchGame(){
-          return this.games.filter((game)=>game.name.includes(this.string_search));
+        searchGame() {
+          return this.games.filter((game) => game.name.includes(this.string_search));
         },
       }
     });
@@ -164,7 +254,7 @@
 
 
   <!-- Computed properties app5 -->
-  
+
   <div id="app5">
     {{message}}
     <br />
@@ -196,37 +286,37 @@
   <hr>
 
   <script>
-      var app5 = new Vue({
-        el: "#app5",
-        data: {
-          message: 'Computed Properties',
-          palindrom: 'roma',
-          tasks: [
-            {name:'Eugenio', age: 37, active: true },
-            {name:'Pere', age: 89, active: true },
-            {name:'Joan', age: 34, active: false },
-            {name:'Pau', age: 12, active: true }],
-          task_aux:[]
+    var app5 = new Vue({
+      el: "#app5",
+      data: {
+        message: 'Computed Properties',
+        palindrom: 'roma',
+        tasks: [
+          { name: 'Eugenio', age: 37, active: true },
+          { name: 'Pere', age: 89, active: true },
+          { name: 'Joan', age: 34, active: false },
+          { name: 'Pau', age: 12, active: true }],
+        task_aux: []
+      },
+      computed: {
+        reverse() {
+          return this.palindrom.split('').reverse().join('');
         },
-        computed: {
-          reverse(){
-            return this.palindrom.split('').reverse().join('');
-          },
-          tasksActive(){
-            return this.tasks.filter((task) => task.active);
-          },
-          tasksOrdered(){
-            return this.tasks.sort((a,b) => a.age - b.age);
-          },
-          tasksNotOrdered(){
-            return this.tasks.sort((a,b) => b.age - a.age);
-          }
+        tasksActive() {
+          return this.tasks.filter((task) => task.active);
+        },
+        tasksOrdered() {
+          return this.tasks.sort((a, b) => a.age - b.age);
+        },
+        tasksNotOrdered() {
+          return this.tasks.sort((a, b) => b.age - a.age);
         }
-      })
+      }
+    })
   </script>
 
   <!-- Events app4 -->
-  
+
   <div id="app4">
     {{ message }}
     <br />
@@ -244,27 +334,27 @@
   <hr>
 
   <script>
-      var app4=new Vue({
-        el: '#app4',
-        data: {
-          message: 'Events',
-          newtask: null,
-          tasks: ['Study']
-        },
-        methods: {
-          addTask(){
-              this.tasks.unshift(this.newtask);
-              this.newtask=null;
-          }
+    var app4 = new Vue({
+      el: '#app4',
+      data: {
+        message: 'Events',
+        newtask: null,
+        tasks: ['Study']
+      },
+      methods: {
+        addTask() {
+          this.tasks.unshift(this.newtask);
+          this.newtask = null;
         }
-  
-      })
-  </script> 
-  
+      }
+
+    })
+  </script>
+
   <!--Hello app-->
 
   <div id="app">
-    {{message}} 
+    {{message}}
   </div>
 
   <script>
@@ -310,18 +400,18 @@
   <hr>
 
   <script>
-      var app2 = new Vue({
-        el: '#app2',
-        data: {
-          message: 'Hello v-show v-if!',
-          connect: true,
-          edad: 18
-        }
-      })
+    var app2 = new Vue({
+      el: '#app2',
+      data: {
+        message: 'Hello v-show v-if!',
+        connect: true,
+        edad: 18
+      }
+    })
   </script>
-  
+
   <!-- V-for app3-->
-  
+
   <div id="app3">
     {{message}}
     <br />
@@ -347,26 +437,27 @@
     <pre>{{$data}}</pre>
   </div>
   <hr>
-  
+
   <script>
-  var app3 = new Vue({
-    el: '#app3',
-    data: {
-      message: 'Hello v-for!',
-      days: ['Monday','Tuesday','Wednesday','Thursday','Friday'],
-      tasks: [
-        {name:'Sleep', priority:'high'},
-        {name: 'Go shopping', priority:'medium'},
-        {name: 'Study', priority: 'high'}
-      ],
-      person:{
-        name: 'Eugenio',
-        profession: 'technician',
-        age: '37'
+    var app3 = new Vue({
+      el: '#app3',
+      data: {
+        message: 'Hello v-for!',
+        days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        tasks: [
+          { name: 'Sleep', priority: 'high' },
+          { name: 'Go shopping', priority: 'medium' },
+          { name: 'Study', priority: 'high' }
+        ],
+        person: {
+          name: 'Eugenio',
+          profession: 'technician',
+          age: '37'
+        }
       }
-    }
-  })
+    })
   </script>
-  
+
 </body>
+
 </html>
