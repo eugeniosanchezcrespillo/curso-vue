@@ -57,7 +57,7 @@
 
   <!--Axios-->
   <div id="app10">
-    <img v-for="p in persons" :alt="p.description" :src="p.thumbnail">
+    <img v-for="p in persons" :alt="p.name.first" :src="p.picture.thumbnail">
     <pre>{{$data}}</pre>
   </div>
   <hr>
