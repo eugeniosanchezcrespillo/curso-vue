@@ -7,14 +7,63 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-
+    <!--Components template-->
     <div id="app2">
+      <h3 v-text="message"></h3><br />
+      <elegir-ganador :listado="personas"></elegir-ganador>
+      <!--<elegir-ganador :listado="personas" inline-template>
+        <div>
+          <ul>
+            <li v-for="p in participantes">{{p}}</li>
+          </ul>  
+        </div>
+      </elegir-ganador>-->
     </div>  
 
-    <script>
+    <template id="template2">
+      <div>
+        <h1 v-if="ganador">El ganador es {{ganador}}</h1>
+        <template v-else>Participantes:
+          <ul>
+            <li v-for="p in participantes">{{p}}</li>
+          </ul>
+        </template>  
+        <button @click="eligeGanador">Participar</button>
+      </div>    
+    </template>
     
+    <script>
+      Vue.component('elegir-ganador',{
+        props: ['listado'],
+        template: '#template2',
+        methods:{
+          eligeGanador(){
+            let cantidad = this.participantes.length;
+            let indice = Math.floor(Math.random()*cantidad);
+            this.ganador = this.participantes[indice]; 
+            
+          }
+        },
+        data(){
+            return{
+              ganador: false,
+              participantes: this.listado
+            }
+        }
+      });
+      var app2=new Vue({
+        el:'#app2',
+        data:{
+          message: 'Component templates',
+          personas: ['Miguel','Roberto','Xisco','Eugenio']
+        }
+      });
     </script>
 
+
+
+    <hr>
+    
     <!-- intro to Components -->
     <div id="app1">
       <h3 v-text="message"></h3>
