@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Vue app components</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <div id="app2">
+    </div>  
+
+    <script>
+    
+    </script>
+
+    <!-- intro to Components -->
+    <div id="app1">
+      <h3 v-text="message"></h3>
+      <my-tasks></my-tasks>
+      <my-tasks></my-tasks>
+      <my-tasks></my-tasks>  
+    </div>
+
+    <script>
+      Vue.component('my-tasks',{
+        template:`<div><ul><li v-for="t in tasks">{{t.title}}</li></ul></div>`,
+        
+        data(){
+          return{
+            tasks: [
+              {'title': 'Hacer la compra'},
+              {'title': 'Estudiar Vue'},
+            ],
+            
+          }
+        }
+      })
+      new Vue({
+        el: '#app1',
+        data:{
+          message: 'Intro to Components'
+        }
+      });  
+    </script>
+    
+</body>
+</html>
