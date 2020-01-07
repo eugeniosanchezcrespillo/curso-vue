@@ -7,6 +7,45 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+
+    <!--Component properties-->
+    <div id="app3">
+      <h3 v-text="message"></h3>
+      <to-uppercase-assign :text="propiedad"></to-uppercase-assign>
+      <to-uppercase-computed :text="propiedad2"></to-uppercase-computed>
+    </div>
+    
+    <script>
+    Vue.component('to-uppercase-assign',{
+      props: ['text'],
+      template: `<div>{{result.toUpperCase()}}</div>`,
+      data(){
+        return{
+          result: this.text,
+        }
+      }
+    });
+    Vue.component('to-uppercase-computed',{
+      props: ['text'],
+      template: `<div>{{toUpper}}</div>`,
+      computed:{
+        toUpper(){
+          return this.text.toUpperCase();
+        }
+      }
+    })
+    var app3 = new Vue({
+      el: "#app3",
+      data: {
+        propiedad: 'hola',
+        propiedad2: 'adios',
+        message: 'Component properties'
+      }
+      
+    });
+    </script>
+    <hr>
+
     <!--Components template-->
     <div id="app2">
       <h3 v-text="message"></h3><br />
